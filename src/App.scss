@@ -1,28 +1,118 @@
 @import './scss/variables.scss';
 
-.layout{
-  width: 100%;
+.layout {
+  min-width: 625px;
   text-align: center;
- 
+  margin: 0 auto;
 }
 
-.addTodo{
-    &__row{
-      display: flex;
-      justify-content: center;
-      margin: 1em 1em;
-    }
+.addTodo {
+  &__wrapper{
+    margin: 2em;
+    border: 1px solid gray;
+  }
 
-    &__row .textInput{
-      min-width: 20em;
-      width: 100%;
-    }
+  &__row {
+    display: flex;
+    justify-content: center;
+  }
 
-   
-} 
+  &__row .group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 1em;
+  }
 
-.container{
+  &__row .textInput {
+    min-width: 28em;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #d2d2d2;
+    outline: 0;
+    font-size: 1.2em;
+    color: #212121;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
 
+  &__row .textInput::placeholder {
+    color: transparent;
+  }
+
+  &__row .textInput:placeholder-shown~.label {
+    font-size: .9em;
+    cursor: text;
+    top: 20px;
+    left: 0;
+  }
+
+  label,
+  &__row .textInput:focus~.label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: .7em;
+    color: #9b9b9b;
+    left: 0;
+  }
+
+  &__row .textInput:focus~.label {
+    color: #0b64d8;
+  }
+
+  &__row .textInput:focus {
+    border-bottom: 1px solid #0b64d8;
+  }
+
+}
+
+.todos {
+  &__wrapper{
+    
+    width: auto;
+    margin: 1em;
+    border: 1px solid gray;
+    border-radius: 3px;
+  }
+
+ 
+  &__inner{
+    width: 100%;
+    display: flex;
+    flex: 0 0 33.333%;
+    justify-content: left;
+    // text-align: center;
+    align-items: stretch;
+    align-self: stretch;
+    align-content: stretch;
+  }
+
+  &__text{
+    line-height: 1.2em;
+    word-spacing: 2px;
+    font-stretch: expanded;
+    font-size: 1em;
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  &__button{
+    background-color: grey;
+    width: 2em;
+    height: 2em;
+  }
+
+  &__button-edit{
+    background-color: green;
+  }
+
+  &__button-remove{
+    background-color: red;
+  }
 }
 
 
@@ -30,6 +120,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
