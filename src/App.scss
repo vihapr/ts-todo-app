@@ -1,15 +1,16 @@
 @import './scss/variables.scss';
 
 .layout {
-  min-width: 625px;
+  min-width: 60em;
   text-align: center;
   margin: 0 auto;
 }
 
 .addTodo {
   &__wrapper{
-    margin: 2em;
-    border: 1px solid gray;
+    width: 60em;
+    max-width: 60em;
+    margin: 2em auto;
   }
 
   &__row {
@@ -71,23 +72,22 @@
 
 .todos {
   &__wrapper{
-    
-    width: auto;
-    margin: 1em;
-    border: 1px solid gray;
-    border-radius: 3px;
+    width: 60em;
+    max-width: 60em;
+    // margin: 0.6em 2em;
+    margin: 0 auto;
+    text-align: center;
   }
-
  
   &__inner{
     width: 100%;
     display: flex;
     flex: 0 0 33.333%;
     justify-content: left;
-    // text-align: center;
     align-items: stretch;
     align-self: stretch;
     align-content: stretch;
+    height: 50px;
   }
 
   &__text{
@@ -98,10 +98,11 @@
     width: 100%;
     word-wrap: break-word;
     word-break: break-all;
+    border: 1px solid gray;
+    border-radius: 3px;
   }
 
   &__button{
-    background-color: grey;
     width: 2em;
     height: 2em;
   }

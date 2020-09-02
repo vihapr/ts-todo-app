@@ -11,10 +11,10 @@ const TodosList: React.FC<{ className: string, todos: ITodo[] }>  = (props) => {
   return (
     <div className={props.className}> {props.todos.map((i, k) =>
      ( 
-       <div className={`${props.className}__wrapper`}>
+       <div key={i.index} className={`${props.className}__wrapper`}>
         <div className={`${props.className}__inner`} >
           <input type="checkbox" name="" id=""/>
-          <div className={`${props.className}__text`} key={i.index} tabIndex={k+1000}>{i.text}</div> 
+          <div className={`${props.className}__text`} >{i.text}</div> 
           <div className={`${props.className}__button ${props.className}__button-edit`}></div>
           <div className={`${props.className}__button ${props.className}__button-remove`}></div>
         </div>
@@ -33,19 +33,20 @@ const TodoApp: React.FC = () => {
   const placeHolder = 'Введите todo и нажмите enter';
 
   const addTodo = (text: string) => {
-    let newTodo = { index: Date.now(), text: text, completed: false }
+    let newTodo: ITodo = { index: Date.now(), text: text, completed: false }
     setTodo(todos => [...todos, newTodo]);
   }
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     // сохраняем значение поля
-    textValue = (event.target as HTMLInputElement).value;
+    // приведем event.target явно к интерфейсу HTMLInputElement (у которого одновременно есть св-ва value и keyCode)
+    let textValue: string = (event.target as HTMLInputElement).value;
 
     // если ентер
     if (event.keyCode === 13) {
-      //  - выполняем хук
+      // - выполняем хук
       addTodo(textValue);
-      // делаем reset для поля ввода
+      // и очищаем поле ввода
       (event.target as HTMLInputElement).value = '';
     }
 
