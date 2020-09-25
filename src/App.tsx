@@ -7,21 +7,21 @@ interface ITodo {
   completed: boolean
 }
 
-const TodosList: React.FC<{ className: string, todos: ITodo[] }>  = (props) => {
+const TodosList: React.FC<{ className: string, todos: ITodo[] }> = (props) => {
   return (
     <div className={props.className}> {props.todos.map((i, k) =>
-     ( 
-       <div key={i.index} className={`${props.className}__wrapper`}>
-        <div className={`${props.className}__inner`} >
-          <input type="checkbox" name="" id=""/>
-          <div className={`${props.className}__text`} >{i.text}</div> 
-          <div className={`${props.className}__button ${props.className}__button-edit`}></div>
-          <div className={`${props.className}__button ${props.className}__button-remove`}></div>
+      (
+        <div key={i.index} className={`${props.className}__wrapper`}>
+          <div className={`${props.className}__inner`} >
+            <input type="checkbox" name="" id="" />
+            <div className={`${props.className}__text`} >{i.text}</div>
+            <div className={`${props.className}__button ${props.className}__button-edit`}></div>
+            <div className={`${props.className}__button ${props.className}__button-remove`}></div>
+          </div>
         </div>
-      </div>
-     )
+      )
     ).reverse()}
-   </div>
+    </div>
   )
 }
 
@@ -37,19 +37,23 @@ const TodoApp: React.FC = () => {
     setTodo(todos => [...todos, newTodo]);
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    // сохраняем значение поля
-    // приведем event.target явно к интерфейсу HTMLInputElement (у которого одновременно есть св-ва value и keyCode)
-    let textValue: string = (event.target as HTMLInputElement).value;
+   // интерфейс уточняет тип target
+  interface WithTargetValueEvent extends React.KeyboardEvent<HTMLInputElement> {
+    target: HTMLInputElement,
+  };
 
-    // если ентер
+  const handleKeyDown = (event: WithTargetValueEvent) => {
+    // сохраняем значение поля
+   
+    textValue = event.target.value;
+    console.log(textValue);
+
     if (event.keyCode === 13) {
       // - выполняем хук
       addTodo(textValue);
       // и очищаем поле ввода
-      (event.target as HTMLInputElement).value = '';
+      event.target.value = '';
     }
-
   }
 
   return (
@@ -60,7 +64,7 @@ const TodoApp: React.FC = () => {
             <div className="addTodo__row group">
               <input type="text" id="textInput" name="textInput" className="addTodo__row textInput" tabIndex={0}
                 onKeyDown={handleKeyDown} placeholder={placeHolder}></input>
-                <label htmlFor="textInput" className="addTodo__row label">{placeHolder}</label>
+              <label htmlFor="textInput" className="addTodo__row label">{placeHolder}</label>
             </div>
           </div>
         </div>
@@ -69,8 +73,6 @@ const TodoApp: React.FC = () => {
     </div>
   )
 }
-
-
 
 function App() {
   return (<>
